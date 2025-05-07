@@ -23,7 +23,7 @@ class MainApp(MDApp):
             self.sections = f.read().split("\n")
         self.cart = [0 for _ in range(len(self.prods))]
 
-        # self.om = OrderManager("localhost", 11111)
+        self.om = OrderManager("localhost", 11111)
         self.sm = MDScreenManager()
         self.auth_screen = Builder.load_file("data/kv/auth.kv")
         self.cart_screen = Builder.load_file("data/kv/cart.kv")
@@ -143,6 +143,9 @@ class MainApp(MDApp):
 
 
     def order(self):
+        self.cart = [0 for _ in range(len(self.prods))]
+        self.update_choose()
+        self.sm.current = "choose"
         self.om.SendOrder(0, 0, 0, self.cart)
 
 if __name__ == "__main__":
